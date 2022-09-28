@@ -14,7 +14,6 @@ mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
-
 @app.route("/")
 def main():
     return render_template("index.html")
@@ -44,6 +43,30 @@ def signup():
             return json.dumps({"error": str(data[0])})
     else:
         return json.dumps({'html': '<span>Enter the required fields !</span>'})
+
+
+@app.route('/signin')
+def displaySignin():
+    test = "hello"
+    return render_template('signin.html', test=test)
+
+
+@app.route('/api/validateLogin', methods=['POST'])
+def validateLogin():
+    try:
+        username = request.form['inputEmail']
+        password = request.form['inputPassword']
+
+        cursor.callproc('sp_validateLogin',(username,))
+        data = cursor.fetchall()
+
+        # if len(data) > 0:
+        #     #check pwd
+        # else:
+        #     return render_template('signin.html', errors="wrong")
+
+    except Exception as e:
+        return render_template('signin.html', error="All fields are required !")
 
 
 if __name__ == "__main__":
