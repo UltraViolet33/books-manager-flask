@@ -14,6 +14,7 @@ mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
+
 @app.route("/")
 def main():
     return render_template("index.html")
