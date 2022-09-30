@@ -150,7 +150,7 @@ def getBooks():
             books_dict.append(book_dict)
 
         return json.dumps(books_dict)
-        
+            
     else:
         redirect('/signin')
 

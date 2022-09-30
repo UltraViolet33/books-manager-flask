@@ -24,7 +24,7 @@
             html += '<div class="">';
             html += `<h4 class='card-title'>Title : ${book.title}</h5>`;
             html += `<h5 class='card-title'>Author : ${book.author}</h5>`;
-            html += `<a class="btn btn-primary">Edit</a>`;
+            html += `<btn  data-id=${book.id} onclick="editBook(this)" class="btn btn-primary">Edit</btn>`;
             html += " </div></div></div>";
             return html;
         });
@@ -37,6 +37,25 @@
 
 
 
+    }
+
+    function editBook(element) {
+
+        console.log(element)
+        const id = element.getAttribute('data-id');
+        console.log(id);
+        getBook(id);
+    }
+
+
+
+    function getBook(id) {
+        fetch("http://localhost:5000/getBookById", {
+            method: 'POST',
+            body: JSON.stringify({
+                id: id
+            })
+        }).then(res => console.log(res))
     }
 
 
