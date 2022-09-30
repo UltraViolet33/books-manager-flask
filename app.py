@@ -128,5 +128,32 @@ def addBook():
         return redirect('/signin')
 
 
+@app.route("/getBooks")
+def getBooks():
+    if session.get('user'):
+        user = session.get('user')
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.callproc('sp_getBooksByUser', (user,))
+        books = cursor.fetchall()
+
+        books_dict = []
+        for book in books:
+            book_dict = {
+                "id": book[0],
+                "title": book[1],
+                "author": book[2],
+                "category": book[3],
+                "rating": book[4],
+                "comments": book[5]
+            }
+            books_dict.append(book_dict)
+
+        return json.dumps(books_dict)
+        
+    else:
+        redirect('/signin')
+
+
 if __name__ == "__main__":
     app.run()
