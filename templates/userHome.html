@@ -1,12 +1,33 @@
 {% extends 'templateUser.html' %}
 
 {% block content %}
+
+
 <div class="bg-light rounded-3 mb-4 p-5">
     <div class="container-fluid py-5">
         <h1 class="text-center fw-bold display-5">Welcome Home!</h1>
     </div>
     <div class="row" id="books">
 
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -24,7 +45,8 @@
             html += '<div class="">';
             html += `<h4 class='card-title'>Title : ${book.title}</h5>`;
             html += `<h5 class='card-title'>Author : ${book.author}</h5>`;
-            html += `<btn  data-id=${book.id} onclick="editBook(this)" class="btn btn-primary">Edit</btn>`;
+            html += `<button  data-id=${book.id} onclick="editBook(this)" class="btn btn-primary">Edit</button>`;
+            html += `<a href='/editBook?id=${book.id}'>Edit</a>'`;
             html += " </div></div></div>";
             return html;
         });
@@ -63,5 +85,6 @@
 
 
 </script>
+
 
 {% endblock %}
