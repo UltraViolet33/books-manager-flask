@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, json, redirect, session
 from flaskext.mysql import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
+import json
 
 app = Flask(__name__)
 app.secret_key = "This is my secret"
@@ -132,8 +133,10 @@ def addBook():
 def getBooks():
     if session.get('user'):
         user = session.get('user')
+
         conn = mysql.connect()
         cursor = conn.cursor()
+
         cursor.callproc('sp_getBooksByUser', (user,))
         books = cursor.fetchall()
 
@@ -150,7 +153,46 @@ def getBooks():
             books_dict.append(book_dict)
 
         return json.dumps(books_dict)
-            
+
+    else:
+        redirect('/signin')
+
+
+@app.route("/getBookById", methods=['POST'])
+def getBookById():
+    if session.get('user'):
+
+        user = session.get('user')
+        # print(user)
+        data = request.get_json(force=True)
+        # data = json.loads(data)
+        id = data['id']
+        # print(id)
+
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        print('id', id)
+        print('user', user)
+        cursor.callproc('sp_getBookById', (user, id,))
+
+        book = cursor.fetchall()
+        print(book)
+
+
+        for item in book:
+            book_dict = {
+                "id": item[0],
+                "title": item[1],
+                "author": item[2],
+                "category": item[3],
+                "rating": item[4],
+                "comments": item[5]
+            }
+
+
+
+        return json.dumps(book_dict)
+
     else:
         redirect('/signin')
 
