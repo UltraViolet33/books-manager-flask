@@ -2,55 +2,40 @@
 
 {% block content %}
 
-<section>
-    <form class="form-horizontal" method="post" action="/addBook">
-        <fieldset>
-            <legend>Add a Book</legend>
-            {% if error %}
-            <p>{{error}}</p>
-            {% endif %}
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="txtTitle">Title</label>
-                <div class="col-md-4">
-                    <input id="txtTitle" name="inputTitle" type="text" placeholder="placeholder"
-                        class="form-control input-md">
+<section class="row justify-content-center">
+    <div class="col-6">
+        <form class="form-horizontal" method="post" action="/addBook">
+            <fieldset>
+                <legend>Add a Book</legend>
+                {% if error %}
+                <p>{{error}}</p>
+                {% endif %}
+                <div class="mb-3">
+                    <label for="inputTitle" class="form-label">Book title</label>
+                    <input type="text" class="form-control" id="inputTitle" name="inputTitle" required="required">
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="txtTitle">Author</label>
-                <div class="col-md-4">
-                    <input id="txtAuthor" name="inputAuthor" type="text" placeholder="placeholder"
-                        class="form-control input-md">
+                <div class="mb-3">
+                    <label for="inputAuthor" class="form-label">Book author</label>
+                    <input type="text" class="form-control" id="inputAuthor" name="inputAuthor" required="required">
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="txtCategory">Category</label>
-                <div class="col-md-4">
-                    <input id="txtCategory" name="inputCategory" type="text" placeholder="placeholder"
-                        class="form-control input-md">
+                <div class="mb-3">
+                    <label for="inputCategory" class="form-label">Book category</label>
+                    <input type="text" class="form-control" id="inputCategory" name="inputCategory" required="required">
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="txtRating">Rating</label>
-                <div class="col-md-4">
-                    <input id="txtRating" name="inputRating" type="text" placeholder="placeholder"
-                        class="form-control input-md">
+                <div class="mb-3">
+                    <label for="inputRating" class="form-label">Book rating / 10</label>
+                    <input type="number" min="0" max="10" class="form-control" id="inputRating" name="inputRating"
+                        required="required">
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="txtPost">Comments</label>
-                <div class="col-md-4">
-                    <textarea class="form-control" id="txtComment" name="inputComments"></textarea>
+                <div class="mb-3">
+                    <label class="form-label" for="inputComments">Comments</label>
+                    <textarea class="form-control" id="inputComments" name="inputComments"></textarea>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="singlebutton"></label>
-                <div class="col-md-4">
-                    <input id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit"
-                        value="Publish" />
-                </div>
-            </div>
-        </fieldset>
-    </form>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+
 </section>
+
 {% endblock %}
