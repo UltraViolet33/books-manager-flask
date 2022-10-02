@@ -1,9 +1,9 @@
 
-
 from flask import Flask, render_template, request, json, redirect, session
 from flaskext.mysql import MySQL
+from flask_cors import CORS, cross_origin
 from werkzeug.security import generate_password_hash, check_password_hash
-import json
+
 
 app = Flask(__name__)
 app.secret_key = "This is my secret"
@@ -70,6 +70,7 @@ def validateLogin():
         if len(data) > 0:
             if check_password_hash(str(data[0][3]), password):
                 session['user'] = data[0][0]
+                print(session.get('user'))
                 return redirect('/userHome')
             else:
                 return render_template('signin.html', error="wrong email or password")
@@ -113,12 +114,13 @@ def addBook():
         category = request.form['inputCategory']
         rating = request.form['inputRating']
         comments = request.form['inputComments']
+        status = request.form['readInput']
         user = session.get('user')
 
         conn = mysql.connect()
         cursor = conn.cursor()
         cursor.callproc('sp_addBook', (title, author,
-                        category, rating, comments, user))
+                        category, rating, comments, status, user))
         data = cursor.fetchall()
 
         if len(data) == 0:
@@ -130,11 +132,19 @@ def addBook():
         return redirect('/signin')
 
 
+api_v2_cors_config = {
+    "origins": ["http://localhost:5000"],
+    "methods": ["OPTIONS", "GET", "POST"],
+    "allow_headers": ["Authorization", "Content-Type"]
+}
+
+
 @app.route("/getBooks")
+@cross_origin(**api_v2_cors_config)
 def getBooks():
+
     if session.get('user'):
         user = session.get('user')
-
         conn = mysql.connect()
         cursor = conn.cursor()
 
@@ -149,48 +159,45 @@ def getBooks():
                 "author": book[2],
                 "category": book[3],
                 "rating": book[4],
-                "comments": book[5]
+                "comments": book[5],
+                "status": book[6],
             }
             books_dict.append(book_dict)
 
         return json.dumps(books_dict)
 
     else:
-        redirect('/signin')
-
-
-
+       return redirect('/signin')
 
 
 @app.route('/editBook', methods=['POST'])
 def editBook():
-     if request.method == 'POST':
+    if request.method == 'POST':
         id = request.form['id']
         title = request.form['inputTitle']
         author = request.form['inputAuthor']
         category = request.form['inputCategory']
         rating = request.form['inputRating']
         comments = request.form['inputComments']
+        status = request.form['readInput']
+
         user = session.get('user')
 
         conn = mysql.connect()
         cursor = conn.cursor()
         cursor.callproc('sp_editBook', (title, author,
-                        category, rating, comments, user, id))
-        
+                        category, rating, comments, status, user, id))
+
         data = cursor.fetchall()
 
-        print(len(data))
         if len(data) == 0:
             conn.commit()
             return redirect('/userHome')
 
 
-
 @app.route('/displayEditBook')
 def displayEditBook():
-   
-    
+
     if session.get('user'):
         user = session.get('user')
         id = request.args.get('id')
@@ -208,7 +215,8 @@ def displayEditBook():
                 "author": item[2],
                 "category": item[3],
                 "rating": item[4],
-                "comments": item[5]
+                "comments": item[5],
+                "status": item[6]
             }
 
         return render_template('editBook.html', book=book_dict)
@@ -230,7 +238,7 @@ def getBookById():
         cursor.callproc('sp_getBookById', (user, id,))
 
         book = cursor.fetchall()
-        
+
         for item in book:
             book_dict = {
                 "id": item[0],
@@ -240,13 +248,10 @@ def getBookById():
                 "rating": item[4],
                 "comments": item[5]
             }
-
         return json.dumps(book_dict)
 
     else:
         redirect('/signin')
-
-
 
 
 @app.route('/deleteBook', methods=['POST'])
@@ -263,11 +268,25 @@ def deleteBook():
 
     if len(result) == 0:
         conn.commit()
-        return json.dumps({'status': 'OK'})
+        cursor.callproc('sp_getBooksByUser', (user,))
+        books = cursor.fetchall()
+
+        books_dict = []
+        for book in books:
+            book_dict = {
+                "id": book[0],
+                "title": book[1],
+                "author": book[2],
+                "category": book[3],
+                "rating": book[4],
+                "comments": book[5],
+                "status": book[6],
+            }
+            books_dict.append(book_dict)
+
+        return json.dumps(books_dict)
     else:
         return json.dumps({'status': 'An error occured'})
-
-
 
 
 if __name__ == "__main__":
