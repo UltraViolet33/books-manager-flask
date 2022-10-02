@@ -26,7 +26,7 @@
             html += `<h4 class='card-title'>${book.rating} / 10</h4>`;
             html += `<p>Category: ${book.category}</p>`
             html += `<p>Satus: ${book.status}</p>`
-            html += `<p>${book.comments}</p>`
+            html += `<p style="text-align:justify">${book.comments}</p>`
             html += `<div class="d-flex justify-content-evenly">`
             html += `<a class="btn btn-primary" href='/displayEditBook?id=${book.id}'>Edit</a>`;
             html += `<button class="btn btn-warning" onclick="confirmDelete(this)" data-id='${book.id}'>Delete</button>'`;
