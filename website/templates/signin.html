@@ -1,0 +1,30 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+<div class="bg-light rounded-3 mb-4 p-5">
+    <div class="container-fluid py-5">
+        <h1 class="text-center fw-bold display-5">Books Rating App </h1>
+        {% if error %}
+        <p>{{error}}</p>
+        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <form class="form-signin" action="/api/validateLogin" method="post">
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="inputEmail" name="inputEmail" required="required">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="inputPassword" name="inputPassword"
+                            required="required">
+                    </div>
+                    <button id="btnSignIn" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

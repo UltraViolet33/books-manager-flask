@@ -1,0 +1,60 @@
+{% extends 'templateUser.html' %}
+
+{% block content %}
+
+<section class="row justify-content-center">
+    <div class="col-6">
+        <form class="form-horizontal" method="post" action="/addBook">
+            <fieldset>
+                <legend>Add a Book</legend>
+                {% if error %}
+                <p>{{error}}</p>
+                {% endif %}
+                <div class="mb-3">
+                    <label for="inputTitle" class="form-label">Book title</label>
+                    <input type="text" class="form-control" id="inputTitle" name="inputTitle" required="required">
+                </div>
+                <div class="mb-3">
+                    <label for="inputAuthor" class="form-label">Book author</label>
+                    <input type="text" class="form-control" id="inputAuthor" name="inputAuthor" required="required">
+                </div>
+                <div class="mb-3">
+                    <label for="inputCategory" class="form-label">Book category</label>
+                    <input type="text" class="form-control" id="inputCategory" name="inputCategory" required="required">
+                </div>
+                <div class="mb-3">
+                    <label for="inputRating" class="form-label">Book rating / 10</label>
+                    <input type="number" min="0" max="10" class="form-control" id="inputRating" name="inputRating"
+                        required="required">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="inputComments">Comments</label>
+                    <textarea class="form-control" id="inputComments" name="inputComments"></textarea>
+                </div>
+                <div class="my-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="readInput" id="readInput" value="read">
+                        <label class="form-check-label" for="readInput">
+                            Read
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="readInput" id="readInput" value="progress">
+                        <label class="form-check-label" for="readInput">
+                            In progress
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="readInput" id="readInput" value="not read">
+                        <label class="form-check-label" for="readInput">
+                            Not read
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+</section>
+
+{% endblock %}
