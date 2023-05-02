@@ -25,10 +25,10 @@ def create_app(config_type=None):
     engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     inspector = sa.inspect(engine)
     # if not inspector.has_table("categories"):
-    with app.app_context():
-        # print("ok")
-        db.drop_all()
-            # db.create_all()
+    # with app.app_context():
+    #     # print("ok")
+    #     db.drop_all()
+    #     db.create_all()
 
     return app
 
@@ -37,13 +37,13 @@ def initialize_extensions(app):
     db.init_app(app)
     login_manager.init_app(app)
 
-    # from app.models.User import User
+    from app.models.User import User
     # from app.models.Movie import Movie
     # from app.models.Category import Category
 
-    # @login_manager.user_loader
-    # def load_user(user_id):
-    #     return User.query.filter(User.id == int(user_id)).first()
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.filter(User.id == int(user_id)).first()
 
     @login_manager.unauthorized_handler
     def unauthorized():
@@ -52,7 +52,7 @@ def initialize_extensions(app):
 
 def register_blueprints(app):
     pass
-    # from .auth import auth
+    from .auth import auth
     # from .movies import movies
-    # app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(auth, url_prefix="/")
     # app.register_blueprint(movies, url_prefix="/")
