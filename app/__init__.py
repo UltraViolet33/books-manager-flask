@@ -25,10 +25,10 @@ def create_app(config_type=None):
     engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     inspector = sa.inspect(engine)
     # if not inspector.has_table("categories"):
-    # with app.app_context():
+    with app.app_context():
     #     # print("ok")
-    #     db.drop_all()
-    #     db.create_all()
+        db.drop_all()
+        db.create_all()
 
     return app
 
@@ -38,7 +38,7 @@ def initialize_extensions(app):
     login_manager.init_app(app)
 
     from app.models.User import User
-    # from app.models.Movie import Movie
+    from app.models.Book import Book
     # from app.models.Category import Category
 
     @login_manager.user_loader

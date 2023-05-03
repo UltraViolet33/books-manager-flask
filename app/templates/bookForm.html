@@ -1,6 +1,24 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
 
-<h1>Ajouter un livre</h1>
+<div class="row justify-content-center m-3">
+    <div class="col-6">
+        <h3 align="center">Ajouter un livre</h3>
+        <form method="POST">
+            {{ form.csrf_token }}
+            <div class="mb-3">
+                {{form.title.label}}
+                {{form.title(class="form-control")}}
+            </div>
+            <div class="mb-3">
+                {{form.image_link.label}}
+                {{form.image_link(class="form-control")}}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
