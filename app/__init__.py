@@ -53,6 +53,7 @@ def initialize_extensions(app):
 def register_blueprints(app):
     pass
     from .auth import auth
+    from .books import books
     # from .movies import movies
     app.register_blueprint(auth, url_prefix="/")
-    # app.register_blueprint(movies, url_prefix="/")
+    app.register_blueprint(books, url_prefix="/")

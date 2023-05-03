@@ -19,7 +19,7 @@ def login():
             if user.is_password_correct(password):
                 flash("Logged in !", category="success")
                 login_user(user, remember=True)
-                return render_template("index.html", user=current_user)
+                return redirect("/")
             else:
                 flash("Email or password incorrect !", category="error")
         else:
@@ -27,3 +27,11 @@ def login():
             flash("Email or password incorrect !", category="error")
 
     return render_template("login.html", user=current_user)
+
+
+
+@auth.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect("/login")

@@ -7,6 +7,7 @@ Flask==2.2.3
 Flask-Login==0.6.2
 Flask-MySQLdb==1.0.1
 Flask-SQLAlchemy==3.0.3
+Flask-WTF==1.1.1
 greenlet==2.0.2
 importlib-metadata==6.0.0
 iniconfig==2.0.0
@@ -18,9 +19,10 @@ packaging==23.0
 pluggy==1.0.0
 pytest==7.2.2
 pytest-cov==4.0.0
+python-dotenv==1.0.0
 SQLAlchemy==2.0.4
 tomli==2.0.1
 typing-extensions==4.5.0
 Werkzeug==2.2.3
+WTForms==3.0.1
 zipp==3.15.0
-python-dotenv
