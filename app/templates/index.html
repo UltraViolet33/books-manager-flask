@@ -8,7 +8,14 @@
                 <img width=90% src={{book.image_link}} style="height:200px; width:100%;object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title">{{book.title}}</h5>
-                    <p class="card-text"></p>
+                    {% if book.authors|length > 0 %}
+                    <h6>Auteur(s):</h6>
+                    {% for author in book.authors %}
+                    <p class="card-text">{{author.name}}</p>
+                    {% endfor %}
+                    {% else %}
+                    <p>Auteur non renseigné</p>
+                    {% endif %}
                 </div>
             </div>
         </div>;
