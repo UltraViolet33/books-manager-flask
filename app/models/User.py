@@ -7,6 +7,30 @@ from sqlalchemy.orm import validates
 from .. import db
 
 
+reading_list_table = db.Table("reading_list",
+                              db.Column("user_id", db.Integer,
+                                        db.ForeignKey("users.id")),
+                              db.Column("book_id", db.Integer,
+                                        db.ForeignKey("books.id"))
+                              )
+
+
+reading_inprogress_table = db.Table("reading_inprogress",
+                                    db.Column("user_id", db.Integer,
+                                              db.ForeignKey("users.id")),
+                                    db.Column("book_id", db.Integer,
+                                              db.ForeignKey("books.id"))
+                                    )
+
+
+read_list_table = db.Table("read_list",
+                           db.Column("user_id", db.Integer,
+                                     db.ForeignKey("users.id")),
+                           db.Column("book_id", db.Integer,
+                                     db.ForeignKey("books.id"))
+                           )
+
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -16,6 +40,15 @@ class User(db.Model, UserMixin):
     password_hashed = db.Column(db.String(150), nullable=False)
     registered_on = db.Column(db.DateTime(
         timezone=True), default=func.now(), nullable=False)
+
+    reading_list = db.relationship(
+        "Book", secondary=reading_list_table, backref="users_reading_list")
+
+    read_list = db.relationship(
+        "Book", secondary=read_list_table, backref="users_read_list")
+
+    reading_inprogress = db.relationship(
+        "Book", secondary=reading_inprogress_table, backref="reading_inprogress")
 
     def __init__(self, email, username, password_plaintext):
         self.email = email
