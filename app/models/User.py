@@ -48,7 +48,7 @@ class User(db.Model, UserMixin):
         "Book", secondary=read_list_table, backref="users_read_list")
 
     reading_inprogress = db.relationship(
-        "Book", secondary=reading_inprogress_table, backref="reading_inprogress")
+        "Book", secondary=reading_inprogress_table, backref="users_reading_inprogress")
 
     def __init__(self, email, username, password_plaintext):
         self.email = email

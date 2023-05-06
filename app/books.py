@@ -13,6 +13,14 @@ books = Blueprint("books", __name__)
 @books.route("/")
 def home():
     books = Book.query.all()
+
+
+    for book in books:
+        book.is_in_reading_list = False
+        for user in book.users_reading_list:
+            if user.id == current_user.id:
+                book.is_in_reading_list = True
+
     return render_template("index.html", user=current_user, books=books)
 
 
@@ -36,3 +44,15 @@ def add_book():
         return redirect(url_for("books.home"))
 
     return render_template("bookForm.html", user=current_user, form=form)
+
+
+
+@books.route("/books/reading-list/add/<id>", methods=["GET"])
+@login_required
+def add_book_to_reading_list(id):
+    book = Book.query.filter_by(id=id).first()
+
+    current_user.reading_list.append(book)
+    db.session.commit()
+
+    return redirect(url_for("books.home"))

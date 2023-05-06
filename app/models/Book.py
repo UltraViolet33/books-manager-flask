@@ -29,3 +29,5 @@ class Book(db.Model):
     def __init__(self, title, image_link):
         self.title = title
         self.image_link = image_link
+
+
