@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from . import db
 from .models.Book import Book
+from .models.Author import Author
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from .forms import BookForm
@@ -20,9 +21,15 @@ def home():
 def add_book():
 
     form = BookForm()
+    form.author.choices = [(c.id, c.name) for c in Author.query.all()]
+
 
     if form.validate_on_submit():
+
         book = Book(title=form.title.data, image_link=form.image_link.data)
+        author = Author.query.filter_by(id=form.author.data).first()
+
+        book.authors.append(author)
         db.session.add(book)
         db.session.commit()
 
