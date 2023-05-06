@@ -11,10 +11,12 @@ books = Blueprint("books", __name__)
 
 @books.route("/")
 def home():
-    return render_template("index.html", user=current_user)
+    books = Book.query.all()
+    return render_template("index.html", user=current_user, books=books)
 
 
 @books.route("/books/add", methods=["GET", "POST"])
+@login_required
 def add_book():
 
     form = BookForm()
@@ -23,5 +25,7 @@ def add_book():
         book = Book(title=form.title.data, image_link=form.image_link.data)
         db.session.add(book)
         db.session.commit()
+
+        return redirect(url_for("books.home"))
 
     return render_template("bookForm.html", user=current_user, form=form)

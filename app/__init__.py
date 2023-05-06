@@ -25,10 +25,10 @@ def create_app(config_type=None):
     engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     inspector = sa.inspect(engine)
     # if not inspector.has_table("categories"):
-    with app.app_context():
-    #     # print("ok")
-        db.drop_all()
-        db.create_all()
+    # with app.app_context():
+    # #     # print("ok")
+    #     db.drop_all()
+    #     db.create_all()
 
     return app
 
@@ -44,10 +44,12 @@ def initialize_extensions(app):
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.filter(User.id == int(user_id)).first()
+    
+    login_manager.login_view = "auth.login"
 
-    @login_manager.unauthorized_handler
-    def unauthorized():
-        return {"msg": "Not authorized"}, 401
+    # @login_manager.unauthorized_handler
+    # def unauthorized():
+    #     return {"msg": "Not authorized"}, 401
 
 
 def register_blueprints(app):

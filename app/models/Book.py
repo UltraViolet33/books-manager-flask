@@ -5,6 +5,15 @@ from sqlalchemy.sql import func
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.orm import validates
 from .. import db
+from .Author import Author
+
+
+books_authors_table = db.Table("books_authors",
+                               db.Column("book_id", db.Integer,
+                                         db.ForeignKey("books.id")),
+                               db.Column("author_id", db.Integer,
+                                         db.ForeignKey("authors.id"))
+                               )
 
 
 class Book(db.Model):
@@ -13,6 +22,9 @@ class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(150), nullable=False)
     image_link = db.Column(db.String(150), nullable=True)
+
+    authors = db.relationship(
+        "Author", secondary=books_authors_table, backref="books")
 
     def __init__(self, title, image_link):
         self.title = title

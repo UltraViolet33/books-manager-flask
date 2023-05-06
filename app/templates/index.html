@@ -1,6 +1,18 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-%}
-
-<h1>Heelo</h1>
-
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+<div class="container">
+    <div class="row my-5 justify-content-center">
+        <h1 class="text-center">Mes Livres</h1>
+        {% for book in books %}
+        <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="card">
+                <img width=90% src={{book.image_link}} style="height:200px; width:100%;object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.title}}</h5>
+                    <p class="card-text"></p>
+                </div>
+            </div>
+        </div>;
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
