@@ -14,7 +14,6 @@ books = Blueprint("books", __name__)
 def home():
     books = Book.query.all()
 
-
     for book in books:
         book.is_in_reading_list = False
         for user in book.users_reading_list:

@@ -39,12 +39,12 @@ def initialize_extensions(app):
 
     from app.models.User import User
     from app.models.Book import Book
-    # from app.models.Category import Category
+    from app.models.Category import Category
 
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.filter(User.id == int(user_id)).first()
-    
+
     login_manager.login_view = "auth.login"
 
     # @login_manager.unauthorized_handler
@@ -56,6 +56,9 @@ def register_blueprints(app):
     from .auth import auth
     from .books import books
     from .authors import authors
+    from .categories import categories
+
     app.register_blueprint(auth, url_prefix="/")
     app.register_blueprint(books, url_prefix="/")
     app.register_blueprint(authors, url_prefix="/")
+    app.register_blueprint(categories, url_prefix="/categories")

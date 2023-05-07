@@ -16,6 +16,14 @@ books_authors_table = db.Table("books_authors",
                                )
 
 
+books_categories_table = db.Table("books_categories",
+                                  db.Column("category_id", db.Integer,
+                                            db.ForeignKey("categories.id")),
+                                  db.Column("book_id", db.Integer,
+                                            db.ForeignKey("books.id"))
+                                  )
+
+
 class Book(db.Model):
     __tablename__ = 'books'
 
@@ -26,8 +34,9 @@ class Book(db.Model):
     authors = db.relationship(
         "Author", secondary=books_authors_table, backref="books")
 
+    categories = db.relationship(
+        "Category", secondary=books_categories_table, backref="books")
+
     def __init__(self, title, image_link):
         self.title = title
         self.image_link = image_link
-
-

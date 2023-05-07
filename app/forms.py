@@ -9,7 +9,9 @@ class BookForm(FlaskForm):
     author = SelectField(validators=[DataRequired()])
 
 
-
-
 class AuthorForm(FlaskForm):
+    name = StringField("Nom", validators=[DataRequired()])
+
+
+class CategoryForm(FlaskForm):
     name = StringField("Nom", validators=[DataRequired()])

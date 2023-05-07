@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block title %}Créer Categorie{% endblock %} {% block content %}
+<div class="row justify-content-center m-3">
+    <div class="col-6">
+        <h3 align="center">Ajouter une catégorie</h3>
+        <form method="POST">
+            {{ form.csrf_token }}
+            <div class="mb-3">
+                {{form.name.label}}
+                {{form.name(class="form-control")}}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
