@@ -56,3 +56,22 @@ def add_book_to_reading_list(id):
     db.session.commit()
 
     return redirect(url_for("books.home"))
+
+
+
+@books.route("/books/reading-list", methods=["GET"]) 
+@login_required
+def reading_list():
+    books = current_user.reading_list
+    return render_template("reading_list.html", user=current_user, books=books)
+
+
+@books.route("/books/reading-list/remove/<id>", methods=["GET"])
+@login_required
+def remove_book_from_reading_list(id):
+    book = Book.query.filter_by(id=id).first()
+
+    current_user.reading_list.remove(book)
+    db.session.commit()
+
+    return redirect(url_for("books.reading_list"))

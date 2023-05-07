@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Remove from reading list</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>
+                <a href="/books/reading-list/remove/{{book.id}}" type="submit" class="btn btn-danger"><i
+                        class="fas fa-times"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
