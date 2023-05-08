@@ -15,23 +15,20 @@ def login():
     form = LoginForm()
 
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
+        if form.validate_on_submit():
+            email = form.email.data
+            password = form.password.data
 
-        user = User.query.filter_by(email=email).first()
-        if user:
-            if user.is_password_correct(password):
-                flash("Logged in !", category="success")
-                login_user(user, remember=True)
-                return redirect("/")
-            else:
-                flash("Email or password incorrect !", category="error")
-        else:
-            print(email)
+            user = User.query.filter_by(email=email).first()
+            if user:
+                if user.is_password_correct(password):
+                    flash("Logged in !", category="success")
+                    login_user(user, remember=True)
+                    return redirect("/")
+
             flash("Email or password incorrect !", category="error")
 
     return render_template("login.html", user=current_user, form=form)
-
 
 
 @auth.route("/logout")

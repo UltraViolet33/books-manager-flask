@@ -13,6 +13,7 @@ books = Blueprint("books", __name__)
 
 
 @books.route("/")
+@login_required
 def home():
     books = Book.query.all()
 

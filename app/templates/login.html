@@ -5,8 +5,8 @@
         <form method="POST">
             {{ form.csrf_token }}
             <div class="mb-3">
-                {{form.username.label}}
-                {{form.username(class="form-control")}}
+                {{form.email.label}}
+                {{form.email(class="form-control")}}
             </div>
             <div class="mb-3">
                 {{form.password.label}}
@@ -14,10 +14,9 @@
             </div>
             {{form.show_password()}}
             {{form.show_password.label}}
-        </form>
-        <div align="center">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </div>
+            <div align="center">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
         </form>
     </div>
 </div>

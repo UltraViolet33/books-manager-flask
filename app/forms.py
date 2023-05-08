@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField, PasswordField
+from wtforms import StringField, EmailField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField, PasswordField
 from wtforms.validators import DataRequired
 
 
 class LoginForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired()])
+    email = EmailField("Email", validators=[DataRequired()])
     password = PasswordField("Password", validators=[
                              DataRequired()], id="password")
     show_password = BooleanField('Show password', id='check')
