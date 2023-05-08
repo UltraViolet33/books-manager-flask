@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}Catégories{% endblock %} {% block content%}
+<div class="container">
+    <div class="row my-5 justify-content-center">
+        <h1 class="text-center">Toutes les catégories</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                    <td>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

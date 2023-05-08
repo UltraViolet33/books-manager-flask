@@ -9,7 +9,7 @@ from .forms import AuthorForm
 authors = Blueprint("authors", __name__)
 
 
-@authors.route("/authors/add", methods=["GET", "POST"])
+@authors.route("/add", methods=["GET", "POST"])
 @login_required
 def add_author():
 
@@ -22,4 +22,11 @@ def add_author():
 
         return redirect(url_for("books.home"))
 
-    return render_template("authorForm.html", user=current_user, form=form)
+    return render_template("authors/add_author.html", user=current_user, form=form)
+
+
+@authors.route("/all")
+@login_required
+def all_authors():
+    all_authors = Author.query.all()
+    return render_template("authors/all_authors.html", user=current_user, authors=all_authors)

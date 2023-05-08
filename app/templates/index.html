@@ -16,6 +16,14 @@
                     {% else %}
                     <p>Auteur non renseigné</p>
                     {% endif %}
+                    {% if book.categories|length > 0 %}
+                    <h6>Catégories:</h6>
+                    {% for category in book.categories %}
+                    <p class="card-text">{{category.name}}</p>
+                    {% endfor %}
+                    {% else %}
+                    <p>Catégories non renseignées</p>
+                    {% endif %}
                     {% if book.is_in_reading_list %}
                     <a href="/books/reading-list/remove/{{book.id}}" class="btn btn-primary">Retirer liste de
                         lecture</a>

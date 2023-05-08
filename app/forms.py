@@ -7,6 +7,8 @@ class BookForm(FlaskForm):
     title = StringField("Titre", validators=[DataRequired()])
     image_link = StringField("Lien Image")
     author = SelectField(validators=[DataRequired()])
+    categories = SelectField(validators=[DataRequired()])
+
 
 
 class AuthorForm(FlaskForm):

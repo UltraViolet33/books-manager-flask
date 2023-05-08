@@ -22,4 +22,12 @@ def add_category():
 
         return redirect(url_for("books.home"))
 
-    return render_template("add_category.html", user=current_user, form=form)
+    return render_template("categories/add_category.html", user=current_user, form=form)
+
+
+
+@categories.route("/all")
+@login_required
+def all_categories():
+    categories = Category.query.all()
+    return render_template("categories/all_categories.html", categories=categories, user=current_user)
