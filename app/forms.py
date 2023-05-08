@@ -1,6 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, IntegerField, SelectMultipleField
+from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField, PasswordField
 from wtforms.validators import DataRequired
+
+
+class LoginForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[
+                             DataRequired()], id="password")
+    show_password = BooleanField('Show password', id='check')
 
 
 class BookForm(FlaskForm):
@@ -8,7 +15,6 @@ class BookForm(FlaskForm):
     image_link = StringField("Lien Image")
     author = SelectField(validators=[DataRequired()])
     categories = SelectField(validators=[DataRequired()])
-
 
 
 class AuthorForm(FlaskForm):

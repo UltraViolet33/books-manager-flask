@@ -3,6 +3,7 @@ from . import db
 from .models.User import User
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from .forms import LoginForm
 
 
 auth = Blueprint("auth", __name__)
@@ -10,6 +11,9 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+
+    form = LoginForm()
+
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
@@ -26,7 +30,7 @@ def login():
             print(email)
             flash("Email or password incorrect !", category="error")
 
-    return render_template("login.html", user=current_user)
+    return render_template("login.html", user=current_user, form=form)
 
 
 
