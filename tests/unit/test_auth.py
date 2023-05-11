@@ -1,8 +1,7 @@
 from flask import url_for
-import json
 from app import create_app
 from flask_login import current_user
-
+from app.forms import LoginForm
 
 
 def test_login_route(test_client):
@@ -11,13 +10,25 @@ def test_login_route(test_client):
     assert b"Login" in response.data
 
 
+def test_login_form(test_client, init_database):
+    form = LoginForm(email="user1@gmail.com", password="User123!")
 
-def test_login_form(test_client):
+    response = test_client.post(
+        "/login", data=form.data, follow_redirects=True)
 
-    response = test_client.post("/login", data={
-        "email": "user1@gmail.com",
-        "password": "User123!"
-    }, follow_redirects=True)
     assert response.status_code == 200
     assert b"Logged in !" in response.data
-    # assert b"Logout" in response.get_data(as_text=True)
+
+    response = test_client.get("/logout")
+    assert response.status_code == 302
+    assert response.headers["Location"] == url_for("auth.login")
+    assert current_user.is_authenticated == False
+
+
+def test_login_failure(test_client, init_database):
+    form = LoginForm(email="user1@gmail.com", password="wrongpassword")
+
+    response = test_client.post(
+        "/login", data=form.data, follow_redirects=True)
+    assert response.status_code == 200
+    assert b"Invalid email or password" in response.data

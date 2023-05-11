@@ -15,7 +15,7 @@ def create_app(config_type=None):
 
     if config_type == None:
         config_type = os.getenv(
-            'CONFIG_TYPE', default='config.DevelopmentConfig')
+            'CONFIG_TYPE', default='config.TestingConfig')
 
     app.config.from_object(config_type)
 
