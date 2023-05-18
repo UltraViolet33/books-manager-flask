@@ -1,0 +1,13 @@
+.pytest_cache
+/__pycache__
+/env
+/tests/__pycache__
+/tests/unit/__pycache__
+/tests/functional/__pycache__
+/app/__pycache__
+/app/models/__pycache__
+
+instance/*.db
+
+.coverage
+.env
