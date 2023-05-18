@@ -1,0 +1,28 @@
+{% extends "base.html" %}{% block title %}{{book.title}}{% endblock %}{% block content %}
+<div class="row justify-content-center">
+    <div class="col-6 text-center">
+        <h1>{{book.title}}</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-evenly">
+        <div class="col-12 col-lg-4">
+            <p><span class="bold">Titre</span> : {{book.title}}</p>
+            <p><span class="bold">Auteur(s)</span> :
+                {% for author in book.authors %}
+                {{author.name}}
+                {% endfor %}
+            </p>
+            <p><span class="bold">Catégorie(s) </span> :
+                {% for category in book.categories %}
+                {{category.name}}
+                {% endfor %}
+            </p>
+            <p>Résumé : {{book.summary}}</p>
+        </div>
+        <div class="col-12 col-lg-4">
+            <img style="height:300px" src={{book.image_link}}>
+        </div>
+    </div>
+</div>
+{% endblock %}

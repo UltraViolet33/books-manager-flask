@@ -24,6 +24,13 @@ def home():
     return render_template("index.html", user=current_user, books=books)
 
 
+@books.route("/books/<id>")
+@login_required
+def book_details(id):
+    book =  Book.query.filter_by(id=id).first()
+    return render_template("books/details.html", user=current_user, book=book)
+
+
 @books.route("/books/add", methods=["GET", "POST"])
 @login_required
 def add_book():
@@ -49,28 +56,30 @@ def add_book():
     return render_template("books/add_book.html", user=current_user, form=form)
 
 
-@books.route("/books/reading-list/add/<id>", methods=["GET"])
-@login_required
-def add_book_to_reading_list(id):
-    book = Book.query.filter_by(id=id).first()
-    current_user.reading_list.append(book)
-    db.session.commit()
-
-    return redirect(url_for("books.home"))
 
 
-@books.route("/books/reading-list", methods=["GET"])
-@login_required
-def reading_list():
-    books = current_user.reading_list
-    return render_template("reading_list.html", user=current_user, books=books)
+# @books.route("/books/reading-list/add/<id>", methods=["GET"])
+# @login_required
+# def add_book_to_reading_list(id):
+#     book = Book.query.filter_by(id=id).first()
+#     current_user.reading_list.append(book)
+#     db.session.commit()
+
+#     return redirect(url_for("books.home"))
 
 
-@books.route("/books/reading-list/remove/<id>", methods=["GET"])
-@login_required
-def remove_book_from_reading_list(id):
-    book = Book.query.filter_by(id=id).first()
-    current_user.reading_list.remove(book)
-    db.session.commit()
+# @books.route("/books/reading-list", methods=["GET"])
+# @login_required
+# def reading_list():
+#     books = current_user.reading_list
+#     return render_template("reading_list.html", user=current_user, books=books)
 
-    return redirect(url_for("books.reading_list"))
+
+# @books.route("/books/reading-list/remove/<id>", methods=["GET"])
+# @login_required
+# def remove_book_from_reading_list(id):
+#     book = Book.query.filter_by(id=id).first()
+#     current_user.reading_list.remove(book)
+#     db.session.commit()
+
+#     return redirect(url_for("books.reading_list"))

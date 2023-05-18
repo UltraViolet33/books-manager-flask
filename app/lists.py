@@ -17,8 +17,6 @@ def reading_list():
 
 
 
-
-
 @lists.route("/read-list", methods=["GET"])
 @login_required
 def read_list():
