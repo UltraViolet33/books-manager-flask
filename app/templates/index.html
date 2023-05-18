@@ -24,14 +24,6 @@
                     {% else %}
                     <p>Catégories non renseignées</p>
                     {% endif %}
-
-                    {% if book.is_in_reading_list %}
-                    <a href="/books/reading-list/remove/{{book.id}}" class="btn btn-primary">Retirer liste de
-                        lecture</a>
-                    {% else %}
-                    <a href="/books/reading-list/add/{{book.id}}" class="btn btn-primary">Ajouter liste de lecture</a>
-                    {% endif %}
-                    
                 </div>
             </div>
         </div>;

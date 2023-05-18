@@ -9,6 +9,7 @@ from . import db
 
 lists = Blueprint("lists", __name__)
 
+
 @lists.route("/reading-list", methods=["GET"])
 @login_required
 def reading_list():
@@ -33,7 +34,6 @@ def add_book_to_reading_list():
 def remove_book_from_reading_list():
     book_id = request.form.get("book_id")
     book = Book.query.filter_by(id=book_id).first()
-
     current_user.reading_list.remove(book)
     db.session.commit()
 
@@ -41,9 +41,19 @@ def remove_book_from_reading_list():
     return redirect(url_for("books.details", id=book_id))
 
 
-
 @lists.route("/read-list", methods=["GET"])
 @login_required
 def read_list():
     books = current_user.read_list
-    return render_template("read_list.html", user=current_user, books=books)
+    return render_template("lists/read_list.html", user=current_user, books=books)
+
+@lists.route("/read-list/add", methods=["POST"])
+@login_required
+def add_book_to_read_list():
+    book_id = request.form.get("book_id")
+    book = Book.query.filter_by(id=book_id).first()
+    current_user.read_list.append(book)
+    db.session.commit()
+
+    flash("Book added to your read list !", category="success")
+    return redirect(url_for("books.details", id=book_id))

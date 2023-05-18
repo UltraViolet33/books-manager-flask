@@ -20,15 +20,34 @@
             </p>
             <p>Résumé : {{book.summary}}</p>
             {% if book.is_in_reading_list %}
-            <form action="/lists/reading-list/remove" method="POST">
-                <input type="hidden" value="{{book.id}}" name="book_id">
-                <button type="submit" class="btn btn-primary">Retirer à ma liste de lecture</button>
-            </form>
+            <div class="mb-3">
+                <form action="/lists/reading-list/remove" method="POST">
+                    <input type="hidden" value="{{book.id}}" name="book_id">
+                    <button type="submit" class="btn btn-primary">Retirer à ma liste de lecture</button>
+                </form>
+            </div>
             {% else %}
-            <form action="/lists/reading-list/add" method="POST">
-                <input type="hidden" value="{{book.id}}" name="book_id">
-                <button type="submit" class="btn btn-primary">Ajouter à ma liste de lecture</button>
-            </form>
+            <div class="mb-3">
+                <form action="/lists/reading-list/add" method="POST">
+                    <input type="hidden" value="{{book.id}}" name="book_id">
+                    <button type="submit" class="btn btn-primary">Ajouter à ma liste de lecture</button>
+                </form>
+            </div>
+            {% endif %}
+            {% if book.is_in_read_list %}
+            <div class="mb-3">
+                <form action="/lists/read-list/remove" method="POST">
+                    <input type="hidden" value="{{book.id}}" name="book_id">
+                    <button type="submit" class="btn btn-primary">Retirer de ma liste de livres lus</button>
+                </form>
+            </div>
+            {% else %}
+            <div class="mb-3">
+                <form action="/lists/read-list/add" method="POST">
+                    <input type="hidden" value="{{book.id}}" name="book_id">
+                    <button type="submit" class="btn btn-primary">Ajouter à ma liste de livres lus</button>
+                </form>
+            </div>
             {% endif %}
         </div>
         <div class="col-12 col-lg-4">

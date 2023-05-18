@@ -1,24 +1,12 @@
-{% extends "base.html" %}
-
-{% block content %}
-
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Remove from reading list</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for book in books %}
-        <tr>
-            <td>{{ book.title }}</td>
-            <td>
-                <a href="/books/reading-list/remove/{{book.id}}" type="submit" class="btn btn-danger"><i
-                        class="fas fa-times"></i></a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% extends "base.html" %}{% block title %}Liste de lecture{% endblock %}{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <h3 align="center">Liste de lecture</h3>
+        {% if books|length > 0 %}
+        {% include 'lists/list_base.html' %}
+        {% else %}
+        Vous n'avez aucun livre dans la liste de lecture
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

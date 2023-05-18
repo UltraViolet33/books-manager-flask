@@ -46,12 +46,18 @@ class Book(db.Model):
 
     def get_single_book(book_id, current_user):
         book =  Book.query.filter_by(id=book_id).first()
+        print(book)
         book.is_in_reading_list = False
+        book.is_in_read_list = False
+
 
         
         for user in book.users_reading_list:
             if user.id == current_user.id:
                 book.is_in_reading_list = True
         
+        for user in book.users_read_list:
+            if user.id == current_user.id:
+                book.is_in_read_list = True
+        
         return book
-

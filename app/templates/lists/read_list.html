@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}Liste de livres lus{% endblock %}{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <h3 align="center">Liste de livres lus</h3>
+        {% if books|length > 0 %}
+        {% include 'lists/list_base.html' %}
+        {% else %}
+        Vous n'avez aucun livre dans la liste de livres lus
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
