@@ -1,11 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
-from . import db
+from flask import Blueprint, render_template, redirect, url_for
+from flask_login import login_required, current_user
 from .models.Book import Book
 from .models.Author import Author
 from .models.Category import Category
-from flask_login import login_user, logout_user, login_required, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
 from .forms import BookForm
+from . import db
 
 
 books = Blueprint("books", __name__)
@@ -28,14 +27,14 @@ def home():
 @books.route("/books/add", methods=["GET", "POST"])
 @login_required
 def add_book():
-
     form = BookForm()
     form.author.choices = [(c.id, c.name) for c in Author.query.all()]
     form.categories.choices = [(c.id, c.name) for c in Category.query.all()]
 
     if form.validate_on_submit():
 
-        book = Book(title=form.title.data, image_link=form.image_link.data, summary=form.summary.data)
+        book = Book(title=form.title.data,
+                    image_link=form.image_link.data, summary=form.summary.data)
         author = Author.query.filter_by(id=form.author.data).first()
 
         category = Category.query.filter_by(id=form.categories.data).first()
@@ -54,7 +53,6 @@ def add_book():
 @login_required
 def add_book_to_reading_list(id):
     book = Book.query.filter_by(id=id).first()
-
     current_user.reading_list.append(book)
     db.session.commit()
 
@@ -72,7 +70,6 @@ def reading_list():
 @login_required
 def remove_book_from_reading_list(id):
     book = Book.query.filter_by(id=id).first()
-
     current_user.reading_list.remove(book)
     db.session.commit()
 

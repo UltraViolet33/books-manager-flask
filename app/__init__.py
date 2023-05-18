@@ -57,8 +57,11 @@ def register_blueprints(app):
     from .books import books
     from .authors import authors
     from .categories import categories
+    from .lists import lists
 
     app.register_blueprint(auth, url_prefix="/")
     app.register_blueprint(books, url_prefix="/")
     app.register_blueprint(authors, url_prefix="/authors")
     app.register_blueprint(categories, url_prefix="/categories")
+    app.register_blueprint(lists, url_prefix="/lists")
+

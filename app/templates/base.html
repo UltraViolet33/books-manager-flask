@@ -29,9 +29,6 @@
                         <a class="nav-link active" aria-current="page" href="/books/add">Add books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/books/reading-list">Reading List</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="">User {{user.username}}</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -52,6 +49,16 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="/categories/all">Categories</a></li>
                             <li><a class="dropdown-item" href="/categories/add">Ajouter</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Listes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/lists/reading-list">Livres à lire</a></li>
+                            <li><a class="dropdown-item" href="/lists/read-list">Livres lus</a></li>
                         </ul>
                     </li>
                 </ul>
