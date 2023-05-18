@@ -1,9 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
 from .models.Book import Book
-from .models.Author import Author
-from .models.Category import Category
-from .forms import BookForm
 from . import db
 
 
@@ -70,7 +67,6 @@ def remove_book_from_read_list():
 
     flash("Book removed to your read list !", category="success")
     return redirect(url_for("books.details", id=book_id))
-
 
 
 @lists.route("/reading-in-progress-list", methods=["GET"])

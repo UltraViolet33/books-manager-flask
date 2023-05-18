@@ -22,5 +22,6 @@ class AuthorForm(FlaskForm):
     name = StringField("Nom", validators=[DataRequired()])
     description = TextAreaField("Description")
 
+
 class CategoryForm(FlaskForm):
     name = StringField("Nom", validators=[DataRequired()])
