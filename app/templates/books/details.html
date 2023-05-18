@@ -49,6 +49,21 @@
                 </form>
             </div>
             {% endif %}
+            {% if book.is_in_progress %}
+            <div class="mb-3">
+                <form action="/lists/reading-in-progress-list/remove" method="POST">
+                    <input type="hidden" value="{{book.id}}" name="book_id">
+                    <button type="submit" class="btn btn-primary">Retirer de mes lectures en cours</button>
+                </form>
+            </div>
+            {% else %}
+            <div class="mb-3">
+                <form action="/lists/reading-in-progress-list/add" method="POST">
+                    <input type="hidden" value="{{book.id}}" name="book_id">
+                    <button type="submit" class="btn btn-primary">Ajouter à mes lectures en cours</button>
+                </form>
+            </div>
+            {% endif %}
         </div>
         <div class="col-12 col-lg-4">
             <img style="height:300px" src={{book.image_link}}>

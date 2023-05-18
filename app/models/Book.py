@@ -49,6 +49,7 @@ class Book(db.Model):
         print(book)
         book.is_in_reading_list = False
         book.is_in_read_list = False
+        book.is_in_progress = False
 
 
         
@@ -59,5 +60,9 @@ class Book(db.Model):
         for user in book.users_read_list:
             if user.id == current_user.id:
                 book.is_in_read_list = True
+
+        for user in book.users_reading_inprogress:
+            if user.id == current_user.id:
+                book.is_in_progress = True
         
         return book
