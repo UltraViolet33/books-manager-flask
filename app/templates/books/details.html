@@ -19,6 +19,17 @@
                 {% endfor %}
             </p>
             <p>Résumé : {{book.summary}}</p>
+            {% if book.is_in_reading_list %}
+            <form action="/lists/reading-list/remove" method="POST">
+                <input type="hidden" value="{{book.id}}" name="book_id">
+                <button type="submit" class="btn btn-primary">Retirer à ma liste de lecture</button>
+            </form>
+            {% else %}
+            <form action="/lists/reading-list/add" method="POST">
+                <input type="hidden" value="{{book.id}}" name="book_id">
+                <button type="submit" class="btn btn-primary">Ajouter à ma liste de lecture</button>
+            </form>
+            {% endif %}
         </div>
         <div class="col-12 col-lg-4">
             <img style="height:300px" src={{book.image_link}}>

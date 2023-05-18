@@ -17,6 +17,7 @@ def home():
 
     for book in books:
         book.is_in_reading_list = False
+
         for user in book.users_reading_list:
             if user.id == current_user.id:
                 book.is_in_reading_list = True
@@ -26,8 +27,8 @@ def home():
 
 @books.route("/books/<id>")
 @login_required
-def book_details(id):
-    book =  Book.query.filter_by(id=id).first()
+def details(id):
+    book = Book.get_single_book(id, current_user)
     return render_template("books/details.html", user=current_user, book=book)
 
 
@@ -58,14 +59,7 @@ def add_book():
 
 
 
-# @books.route("/books/reading-list/add/<id>", methods=["GET"])
-# @login_required
-# def add_book_to_reading_list(id):
-#     book = Book.query.filter_by(id=id).first()
-#     current_user.reading_list.append(book)
-#     db.session.commit()
 
-#     return redirect(url_for("books.home"))
 
 
 # @books.route("/books/reading-list", methods=["GET"])
@@ -75,11 +69,4 @@ def add_book():
 #     return render_template("reading_list.html", user=current_user, books=books)
 
 
-# @books.route("/books/reading-list/remove/<id>", methods=["GET"])
-# @login_required
-# def remove_book_from_reading_list(id):
-#     book = Book.query.filter_by(id=id).first()
-#     current_user.reading_list.remove(book)
-#     db.session.commit()
 
-#     return redirect(url_for("books.reading_list"))

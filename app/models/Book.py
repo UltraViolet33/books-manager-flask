@@ -42,3 +42,16 @@ class Book(db.Model):
         self.title = title
         self.image_link = image_link
         self.summary = summary
+
+
+    def get_single_book(book_id, current_user):
+        book =  Book.query.filter_by(id=book_id).first()
+        book.is_in_reading_list = False
+
+        
+        for user in book.users_reading_list:
+            if user.id == current_user.id:
+                book.is_in_reading_list = True
+        
+        return book
+
