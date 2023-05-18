@@ -16,7 +16,7 @@ def add_author():
     form = AuthorForm()
 
     if form.validate_on_submit():
-        author = Author(name=form.name.data)
+        author = Author(name=form.name.data, description=form.description.data)
         db.session.add(author)
         db.session.commit()
 

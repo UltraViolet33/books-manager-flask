@@ -3,7 +3,6 @@ from . import db
 from .models.Book import Book
 from .models.Author import Author
 from .models.Category import Category
-
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from .forms import BookForm
@@ -36,7 +35,7 @@ def add_book():
 
     if form.validate_on_submit():
 
-        book = Book(title=form.title.data, image_link=form.image_link.data)
+        book = Book(title=form.title.data, image_link=form.image_link.data, summary=form.summary.data)
         author = Author.query.filter_by(id=form.author.data).first()
 
         category = Category.query.filter_by(id=form.categories.data).first()
@@ -51,7 +50,6 @@ def add_book():
     return render_template("books/add_book.html", user=current_user, form=form)
 
 
-
 @books.route("/books/reading-list/add/<id>", methods=["GET"])
 @login_required
 def add_book_to_reading_list(id):
@@ -63,8 +61,7 @@ def add_book_to_reading_list(id):
     return redirect(url_for("books.home"))
 
 
-
-@books.route("/books/reading-list", methods=["GET"]) 
+@books.route("/books/reading-list", methods=["GET"])
 @login_required
 def reading_list():
     books = current_user.reading_list

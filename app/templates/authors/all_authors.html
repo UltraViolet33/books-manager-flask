@@ -6,12 +6,14 @@
             <thead>
                 <tr>
                     <th>Noms</th>
+                    <th>Descriptions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for author in authors %}
                 <tr>
                     <td>{{ author.name }}</td>
+                    <td>{{ author.description }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

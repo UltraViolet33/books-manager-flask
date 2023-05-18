@@ -6,6 +6,7 @@ from flask_login import login_required, current_user
 
 categories = Blueprint("categories", __name__)
 
+
 @categories.route("/add", methods=["GET", "POST"])
 @login_required
 def add_category():
@@ -23,7 +24,6 @@ def add_category():
         return redirect(url_for("books.home"))
 
     return render_template("categories/add_category.html", user=current_user, form=form)
-
 
 
 @categories.route("/all")
