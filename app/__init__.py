@@ -23,12 +23,12 @@ def create_app(config_type=None):
     register_blueprints(app)
 
     engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-    inspector = sa.inspect(engine)
+    #inspector = sa.inspect(engine)
     # if not inspector.has_table("categories"):
-    # with app.app_context():
+    #with app.app_context():
     # #     # print("ok")
-    #     db.drop_all()
-    #     db.create_all()
+        #db.drop_all()
+        #db.create_all()
 
     return app
 
