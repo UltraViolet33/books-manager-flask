@@ -20,9 +20,7 @@ def home():
 @books.route("/books/<id>")
 @login_required
 def details(id):
-    print("dd")
     book = Book.get_single_book(id, current_user)
-    print(book)
     return render_template("books/details.html", user=current_user, book=book)
 
 
