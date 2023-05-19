@@ -16,11 +16,13 @@ def add_author():
     form = AuthorForm()
 
     if form.validate_on_submit():
+        #check if author already exists
         author = Author(name=form.name.data, description=form.description.data)
         db.session.add(author)
         db.session.commit()
 
-        return redirect(url_for("books.home"))
+        flash(f"Auteur {author.name} ajouté", category="success")
+        return redirect(url_for("authors.all_authors"))
 
     return render_template("authors/add_author.html", user=current_user, form=form)
 

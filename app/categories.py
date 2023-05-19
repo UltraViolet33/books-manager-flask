@@ -1,8 +1,9 @@
 from . import db
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from .models.Category import Category
 from .forms import CategoryForm
 from flask_login import login_required, current_user
+
 
 categories = Blueprint("categories", __name__)
 
@@ -20,8 +21,9 @@ def add_category():
             category = Category(name=category_name)
             db.session.add(category)
             db.session.commit()
-
-        return redirect(url_for("books.home"))
+        
+            flash(f"Catégorie {category.name} ajouté", category="success")
+            return redirect(url_for("categories.all_categories"))
 
     return render_template("categories/add_category.html", user=current_user, form=form)
 
