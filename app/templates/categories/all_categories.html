@@ -11,7 +11,7 @@
             <tbody>
                 {% for category in categories %}
                 <tr>
-                    <td>{{ category.name }}</td>
+                    <td><a href="/categories/edit/{{category.id}}">{{ category.name }}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

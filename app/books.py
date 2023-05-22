@@ -60,7 +60,7 @@ def edit_book(id):
         return redirect(url_for("books.list"))
 
 
-    return render_template("books/add_book.html", form=form, user=current_user, book=book)
+    return render_template("books/book_form.html", form=form, user=current_user, book=book)
 
 
 @books.route("/books/add", methods=["GET", "POST"])
@@ -85,4 +85,4 @@ def add_book():
 
         return redirect(url_for("books.home"))
 
-    return render_template("books/add_book.html", user=current_user, form=form)
+    return render_template("books/book_form.html", user=current_user, form=form)
