@@ -6,16 +6,12 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {% for category in categories %}
                 <tr>
-                    <td>{{ category.name }}</td>
-                    <td>
-
-                    </td>
+                    <td><a href="/categories/edit/{{category.id}}">{{ category.name }}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

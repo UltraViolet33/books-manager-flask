@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% block title %}Liste de livres{% endblock %}{% block content%}
+<div class="container">
+    <div class="row my-5 justify-content-center">
+        <h1 class="text-center">Tous les livres</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td><a href="/books/{{book.id}}">{{ book.title }}</a></td>
+                    <td><a href="/books/edit/{{book.id}}">Modifier</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,22 +1,27 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-%}
-
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
 <div class="row justify-content-center m-3">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
+        {% if book %}
+        <h3 align="center">Modifer {{book.title}}</h3>
+        {% else %}
         <h3 align="center">Ajouter un livre</h3>
+        {% endif %}
         <form method="POST">
             {{ form.csrf_token }}
             <div class="mb-3">
                 {{form.title.label}}
-                {{form.title(class="form-control")}}
+                {{form.title(class="form-control", value=book.title)}}
             </div>
             <div class="mb-3">
                 {{form.image_link.label}}
-                {{form.image_link(class="form-control")}}
+                {{form.image_link(class="form-control", value=book.image_link)}}
             </div>
             <div class="mb-3">
                 {{form.summary.label}}
                 {{form.summary(class="form-control")}}
+                {% if book %}
+                {{book.summary}}
+                {% endif %}
             </div>
             <div class="mb-3">
                 {{form.author.label}}
@@ -27,10 +32,9 @@
                 {{form.categories(class="form-control")}}
             </div>
             <div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
             </div>
         </form>
     </div>
 </div>
-
 {% endblock %}

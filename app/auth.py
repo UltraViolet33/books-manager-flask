@@ -24,7 +24,7 @@ def login():
                     login_user(user, remember=True)
                     return redirect("/")
 
-                flash("Invalid email or password", category="error")
+            flash("Invalid email or password", category="error")
 
     return render_template("login.html", user=current_user, form=form)
 

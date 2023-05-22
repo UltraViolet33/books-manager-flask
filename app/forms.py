@@ -5,17 +5,17 @@ from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
     email = EmailField("Email", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[
+    password = PasswordField("Mot de passe", validators=[
                              DataRequired()], id="password")
-    show_password = BooleanField('Show password', id='check')
+    show_password = BooleanField('Voir mot de passe', id='check')
 
 
 class BookForm(FlaskForm):
     title = StringField("Titre", validators=[DataRequired()])
     image_link = StringField("Lien Image")
     summary = TextAreaField("Résumé")
-    author = SelectField(validators=[DataRequired()])
-    categories = SelectField(validators=[DataRequired()])
+    author = SelectField("Auteur(s)", validators=[DataRequired()])
+    categories = SelectField("Catégorie(s)",validators=[DataRequired()])
 
 
 class AuthorForm(FlaskForm):
