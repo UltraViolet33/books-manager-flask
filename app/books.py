@@ -17,6 +17,13 @@ def home():
     return render_template("index.html", user=current_user, books=books)
 
 
+@books.route("/books/list")
+@login_required
+def list():
+    books = Book.query.all()
+    return render_template("books/list.html", user=current_user, books=books)
+
+
 @books.route("/books/<id>")
 @login_required
 def details(id):
