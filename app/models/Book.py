@@ -1,11 +1,5 @@
-import re
-from datetime import datetime
-from flask_login import UserMixin
-from sqlalchemy.sql import func
-from werkzeug.security import check_password_hash, generate_password_hash
-from sqlalchemy.orm import validates
 from .. import db
-from .Author import Author
+
 
 
 books_authors_table = db.Table("books_authors",
