@@ -10,11 +10,11 @@
             {{ form.csrf_token }}
             <div class="mb-3">
                 {{form.title.label}}
-                {{form.title(class="form-control", value=book.title)}}
+                {{form.title(class="form-control")}}
             </div>
             <div class="mb-3">
                 {{form.image_link.label}}
-                {{form.image_link(class="form-control", value=book.image_link)}}
+                {{form.image_link(class="form-control")}}
             </div>
             <div class="mb-3">
                 {{form.summary.label}}

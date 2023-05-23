@@ -40,10 +40,10 @@ def edit_book(id):
     book = Book.get_single_book(id, current_user)
 
     if request.method == "GET":
-        form.summary.data = book.summary 
+        form.title.data = book.title
+        form.image_link.data = book.image_link
 
     if request.method == "POST" and form.validate_on_submit():
-        print("ok")
         book.title = form.title.data
         book.image_link = form.image_link.data
         book.summary = form.summary.data
@@ -58,7 +58,6 @@ def edit_book(id):
 
         flash(f"{book.title} a été modifier !", category="success")
         return redirect(url_for("books.list"))
-
 
     return render_template("books/book_form.html", form=form, user=current_user, book=book)
 
