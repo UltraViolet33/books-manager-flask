@@ -1,10 +1,10 @@
 {% extends "base.html" %}{% block title %}{{book.title}}{% endblock %}{% block content %}
-<div class="row justify-content-center">
+<div class="row justify-content-center my-3">
     <div class="col-6 text-center">
         <h1>{{book.title}}</h1>
     </div>
 </div>
-<div class="container">
+<div class="container my-3">
     <div class="row justify-content-evenly">
         <div class="col-12 col-lg-4">
             <p><span class="bold">Titre</span> : {{book.title}}</p>
@@ -65,8 +65,11 @@
             </div>
             {% endif %}
         </div>
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4 my-3">
             <img style="height:300px" src={{book.image_link}}>
+        </div>
+        <div class="col-6 text-center my-3">
+            <a class="btn btn-primary" href="/books/edit/{{book.id}}">Modifier le livre</a>
         </div>
     </div>
 </div>

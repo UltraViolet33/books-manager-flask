@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from . import db
-from .models.Author import Author
 from flask_login import login_required, current_user
+from .models.Author import Author
 from .forms import AuthorForm
+from . import db
 
 
 authors = Blueprint("authors", __name__)
@@ -36,6 +36,7 @@ def edit_author(id):
     form = AuthorForm()
 
     if request.method == "GET":
+        form.name.data = author.name
         form.description.data = author.description
 
     if form.validate_on_submit():

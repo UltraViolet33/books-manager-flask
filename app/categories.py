@@ -1,8 +1,8 @@
-from . import db
 from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask_login import login_required, current_user
 from .models.Category import Category
 from .forms import CategoryForm
-from flask_login import login_required, current_user
+from . import db
 
 
 categories = Blueprint("categories", __name__)
@@ -11,7 +11,6 @@ categories = Blueprint("categories", __name__)
 @categories.route("/add", methods=["GET", "POST"])
 @login_required
 def add_category():
-
     form = CategoryForm()
 
     if request.method == "POST":
@@ -37,6 +36,10 @@ def edit_category(id):
         return "404", 404
 
     form = CategoryForm()
+
+    if request.method == "GET":
+        form.name.data = category.name
+
 
     if request.method == "POST":
         if form.validate_on_submit():
