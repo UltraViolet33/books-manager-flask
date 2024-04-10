@@ -23,12 +23,6 @@ def create_app(config_type=None):
     register_blueprints(app)
 
     engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-    #inspector = sa.inspect(engine)
-    # if not inspector.has_table("categories"):
-    #with app.app_context():
-    # #     # print("ok")
-        #db.drop_all()
-        #db.create_all()
 
     return app
 
@@ -47,9 +41,6 @@ def initialize_extensions(app):
 
     login_manager.login_view = "auth.login"
 
-    # @login_manager.unauthorized_handler
-    # def unauthorized():
-    #     return {"msg": "Not authorized"}, 401
 
 
 def register_blueprints(app):
@@ -64,4 +55,3 @@ def register_blueprints(app):
     app.register_blueprint(authors, url_prefix="/authors")
     app.register_blueprint(categories, url_prefix="/categories")
     app.register_blueprint(lists, url_prefix="/lists")
-
